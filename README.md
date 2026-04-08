@@ -4,6 +4,15 @@ Planning Stage &amp; Code
 
 https://www.kaggle.com/competitions/gemma-4-good-hackathon
 
+- 解決「細」嘅大問題
+- Unsloth 微調
+- llama.cpp 優化 量化（Quantization）過程
+- 展示到 Gemma 4 處理影像（Vision）
+- 唔好只係 Demo 畫面，要講出一個故事, 影片係靈魂
+- 強調「邊緣運算」 (Edge Deployment)
+- 突出 Agent 屬性
+
+
 draft architecutre 
 ```mermaid
 graph TD
