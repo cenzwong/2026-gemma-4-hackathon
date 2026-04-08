@@ -7,7 +7,7 @@ https://www.kaggle.com/competitions/gemma-4-good-hackathon
 ```mermaid
 graph TD
     %% Define Nodes
-    User[使用者 User<br/>(醫護人員/病患)]
+    User[使用者 User (醫護人員/病患)]
     
     subgraph "邊緣設備 Edge Device (Project NOMAD / Kaggle T4)"
         Orchestrator[Python 協調器<br/>Orchestrator Logic]
