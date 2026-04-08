@@ -18,7 +18,7 @@ https://www.kaggle.com/competitions/gemma-4-good-hackathon
 
 - 醫學倫理說明： 喺影片或 Writeup 結尾，加一小段關於「AI 點樣輔助醫生而非取代醫生」嘅說明，呢點對醫療 Track 嘅評審（如 Google DeepMind 嘅醫學專家）好重要。
 - Demo 完整性： 唔好只係 show 一個 Jupyter Notebook。整一個簡單嘅 Streamlit 或 Flutter App 界面，展示成個 Agent 點樣「接收相片 -> 思考 -> 查資料 -> 比出建議」。
-
+- 如果要贏 LiteRT 獎項，Android 確實係 Google AI Edge 嘅「主場」。
 
 draft architecutre 
 ```mermaid
