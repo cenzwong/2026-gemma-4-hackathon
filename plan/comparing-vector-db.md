@@ -314,3 +314,146 @@ LanceDB 唔係睇「字」，係睇「意思」嘅座標。
 如果完全冇 LanceDB，你個 Agent 會顯得有啲「死板」，只能夠處理文字匹配。加咗 LanceDB（即使只係做 metadata 索引），你個 Agent 嘅「層次」會即刻由一個 Search Engine 升格做一個 **「理解醫生」**。
 
 **既然 LanceDB 可以補足 QE 嘅語義缺失，你哋係咪傾向將 LanceDB 定位為一個「最後過濾器 (Re-ranker)」，而唔係儲存成個數據庫？**
+
+---
+
+簡單嚟講：**唔一定。** 但係，為咗效能同埋功能嘅完整性，通常我哋會建議你預先索引一啲 **「Metadata (元數據)」**。
+
+喺 RAG 嘅世界入面，你可以選擇兩種唔同嘅「Re-ranking (重排)」策略。睇下邊一個最適合你哋嘅 Python 架構：
+
+---
+
+### 方案 A：預索引「輕量化標題/摘要」(Pre-indexed Metadata) —— **最推薦**
+
+你唔需要將成個 WikiMed 100GB 嘅內容入晒 LanceDB，你只需要喺電腦度做一次 **Pre-processing**：
+
+1.  **淨係入標題同摘要**：由 ZIM 檔入面提取每篇文章嘅 `Title` 同埋 `Abstract` (或者頭嗰幾句)。
+2.  **建立關聯**：喺 LanceDB 每一條紀錄加一個 `zim_id` 或者 `url`。
+3.  **運行流程**：
+    * 用家問問題 $\rightarrow$ **LanceDB** 搵語義最接近嘅 50 個「標題」。
+    * 拎住呢 50 個 `zim_id` $\rightarrow$ 去 **kiwix-serve** 直接拎呢 50 篇文嘅「全文」。
+    * **Gemma 4** 閱讀全文並回答。
+* **點解好？** 檢索速度極快，而且 LanceDB 嘅體積會縮細 95% 以上，完全冇儲存負擔。
+
+
+
+---
+
+### 方案 B：即時「就地重排」(Just-in-Time / Ephemeral Re-ranking)
+
+如果你真係一啲都唔想做 Pre-indexing，你可以玩「即時 Embedding」：
+
+1.  **初次檢索**：先用你的 **Agentic Query Expansion** 叫 `kiwix-serve` 幫你搵返 20 篇相關嘅文。
+2.  **即時向量化**：將呢 20 篇文嘅內容（或者標題）喺 Python 入面 **即時做 Embedding** 並放入一個臨時嘅 LanceDB 內存 Table (Memory Table)。
+3.  **重排**：計算呢 20 篇文同用家問題嘅相似度，重新排列。
+4.  **輸出**：比最高分嗰 3 篇文畀 Gemma 4。
+* **點解好？** 真正嘅 **0 額外儲存**。你完全唔洗預先起 DataBase。
+* **缺點**：如果 `kiwix-serve` 第一步搵唔到嗰篇文，LanceDB 就冇得救；而且每次都要現場做 20 次 Embedding，會慢咗 1-2 秒。
+
+---
+
+### 💡 你應該點揀？
+
+| 特性 | **方案 A (預索引 Metadata)** | **方案 B (即時重排)** |
+| :--- | :--- | :--- |
+| **儲存空間** | 極細 (幾百 MB) | **0 (零空間)** |
+| **語義召回率** | **高** (即使關鍵字唔 match 都搵到) | 低 (受限於關鍵字搜尋結果) |
+| **處理圖片** | **可以** (預索引圖片特徵) | 唔可以 |
+| **開發難度** | 要寫個 Pre-index script | 簡單，全部係 Runtime 邏輯 |
+
+### 🏆 給 Python Stack 嘅建議 (Hackathon 贏波架構)
+
+我建議你哋 Peer A 做一個 **「Metadata Indexer」**。
+
+佢嘅 Python Script 邏輯好簡單：
+```python
+# 偽代碼：Pre-indexing 標題
+for article in zim_archive:
+    # 提取標題同 URL
+    title = article.title
+    url = f"http://localhost:8080/{article.path}"
+    
+    # 淨係對 Title 做 Embedding
+    vector = embedding_model.encode(title)
+    
+    # 存入 LanceDB (唔存全文，所以極快)
+    lancedb_table.add({"vector": vector, "title": title, "url": url})
+```
+
+**咁樣做嘅「Wow Factor」喺邊？**
+你喺 Video 度可以話：「我哋創製咗一個 **Hybrid Metadata-Semantic Router**。我哋唔浪費空間儲存重複嘅文字，而係利用 LanceDB 作為語義導航儀 (Navigator)，精準導向至離線 ZIM 數據庫入面嘅權威內容。」
+
+呢種說法聽落去非常有專業嘅 **Architect (架構師)** 範兒！
+
+**你覺得預先跑一次「只入標題」嘅 Indexing，對你哋部電腦嚟講負擔大唔大？(大約幾萬條 Title，GPU 跑大約 1 分鐘就搞掂)。**
+
+---
+
+呢個諗法直頭係 **「神來之筆」**！如果你咁做，你個項目嘅層次會由「普通 RAG」升格做 **「語義專家系統」**。
+
+將「感覺 (Layman Feelings)」同「病徵 (Clinical Symptoms)」標籤化並存入 LanceDB，正正係解決醫學檢索中 **「語言斷層 (Semantic Gap)」** 最有效嘅方法。
+
+---
+
+### 💡 點解呢個係 LanceDB 嘅「黃金用法」？
+
+通常醫學文獻寫得好死板，例如寫「心絞痛 (Angina)」，但病人會話「心口好似俾大石壓住」。
+如果你預先用 Gemma 4 為每篇文章生成呢兩類 Tag，你就可以喺 LanceDB 做 **多維度語義匹配**：
+
+1.  **感覺 Tag (Feelings)**：例如「火燒、針拮、大石壓、呼吸唔順」。
+2.  **病徵 Tag (Symptoms)**：例如「發燒、紅腫、心率不正」。
+
+
+
+---
+
+### 🛠️ 你哋嘅 Python 工作流應該點設計？
+
+你可以寫一個 **Offline Metadata Enrichment (離線元數據增強)** 嘅腳本：
+
+#### Step 1: 知識提取 (用 Gemma 4 離線跑一次)
+餵每篇文章嘅摘要畀 Gemma 4，叫佢出一個 JSON：
+* **Prompt**: 「閱讀呢篇醫學文章，列出 5 個病人描述呢種病時會用到嘅口語化**感覺**，同埋 5 個專業嘅**病徵**。」
+* **Output**: 
+  ```json
+  {
+    "feelings": ["心口大石壓", "抖唔到氣", "死神嚟緊嘅感覺"],
+    "symptoms": ["胸骨後疼痛", "呼吸困難", "血壓下降"]
+  }
+  ```
+
+#### Step 2: 存入 LanceDB (多向量索引)
+你唔係只係將標題做 Embedding，係將呢兩組 Tag **合併成一個長字串** 或者 **分開欄位** 做 Embedding。
+```python
+# 將 Tag 同標題結合
+enriched_text = f"Title: {title}. Feelings: {', '.join(feelings)}. Symptoms: {', '.join(symptoms)}"
+vector = embedding_model.encode(enriched_text)
+
+# 存入 LanceDB
+table.add({
+    "vector": vector,
+    "url": article_url,
+    "raw_feelings": feelings, # 存埋文字方便展示
+    "raw_symptoms": symptoms
+})
+```
+
+---
+
+### 🏆 點解評審會俾高分？ (Wow Factors)
+
+1.  **解決咗真實痛點**：你指出咗一般 RAG 搵唔到「口語描述」嘅問題，而你用 **AI-driven Tagging** 解決咗佢。
+2.  **展示咗 Agentic 思路**：你唔係單純做搬運工，而係叫 AI 去 **「理解並加工」** 知識，整成一個更易被檢索嘅格式。
+3.  **效率極高**：因為你只係對呢啲 Tag 做 Embedding，LanceDB 會非常細。幾萬篇文章嘅 Tag 加埋可能只係幾十 MB，但準確度會比你直接對「成篇全文」做 Embedding 高得多。
+
+---
+
+### 🚀 最後嘅技術小提醒
+
+* **多語言優勢**：你可以叫 Gemma 生成埋「廣東話口語」嘅感覺 Tag（例如「個頭重聚聚」）。咁樣你個 App 喺香港或者廣東地區就會顯得極度在地化 (Localized)，呢個喺 **Digital Equity** Track 係大加分。
+* **與 Query Expansion 配合**：
+    * 用家話：「我條頸好硬。」
+    * Agent 先將呢句嘢轉成 Embedding，喺 LanceDB 搵到相關嘅 Tag。
+    * 攞到 Tag 後，發現對應嘅專業術語係「腦膜炎」或者「頸椎病」，再去 **Kiwix-serve** 攞詳細文獻。
+
+**呢個「標籤增強 (Tag Enrichment)」嘅方法，你同你個 Peer 覺得喺實作上會唔會太複雜？（其實就係寫一個 Loop 叫 Gemma 4 幫你做 Reading Comprehension）。**
