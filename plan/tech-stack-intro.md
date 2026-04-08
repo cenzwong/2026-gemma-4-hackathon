@@ -120,3 +120,57 @@ Which of these technical "challenges" sounds most interesting to you: **optimizi
 **總結：** 你可以同時揀 **llama.cpp** 做推理引擎，並用 **Unsloth** 做微調，咁你就有機會同時角逐兩份技術獎同埋一份 Impact Track 獎！
 
 你覺得對於你嚟講，係**「將模型行得順」 (llama.cpp)** 定係 **「將模型教得更專業」 (Unsloth)** 比較吸引？
+
+
+---
+
+While you *can* use multiple technologies in your project, the most successful strategy for a $200,000 hackathon is to **lead with one and support with others.**
+
+In a competitive field (already over 4,600 entrants in early April 2026), judges for the **Special Technology Track** are looking for "Technical Mastery." A project that uses everything superficially will likely be overlooked in favor of a project that pushes the absolute limits of one specific tool.
+
+Here is the strategic breakdown for your Kiwix + Gemma 4 RAG project:
+
+---
+
+## 1. The "Lead" Strategy (Pick Your $10,000 Target)
+Since you are building an **air-gapped RAG solution**, your project naturally aligns with three specific prizes. Choose the one that matches your strongest engineering skill:
+
+### Option A: The "llama.cpp" Path (The Hardcore Engineer)
+* **The Pitch:** "The most efficient, high-performance RAG on a $100 Raspberry Pi 5."
+* **Why for you:** Since you're focused on air-gapped environments, the **llama.cpp** prize is your best bet. You can showcase custom GGUF quantization levels for Gemma 4 and how you optimized the `libzim` extraction to not starve the CPU while the LLM is inferencing.
+* **Winning Move:** Demonstrate sub-2 second "Time to First Token" on a device with no GPU.
+
+### Option B: The "Unsloth" Path (The Data Scientist)
+* **The Pitch:** "Gemma 4 fine-tuned specifically to understand the internal structure of ZIM/Wikipedia archives."
+* **Why for you:** If you want to improve the **Main Track** score (Accuracy), fine-tuning is key. You can use Unsloth to train Gemma 4 on "Retrieval-Specific" tasks (e.g., learning to ignore HTML noise or citing sources correctly).
+* **Winning Move:** Show a benchmark where your "Gemma-4-ZIM" model outperforms the base model at extracting facts from your ZIM data.
+
+### Option C: The "Cactus" Path (The Systems Architect)
+* **The Pitch:** "A resilient RAG that seamlessly switches between a local Kiwix cache and a remote server."
+* **Why for you:** This fits if your project isn't *always* air-gapped but needs to be "offline-ready."
+* **Winning Move:** Film a demo where you pull the Ethernet cable mid-query, and Cactus routes the rest of the task to the local `kiwix-serve` instance without crashing.
+
+---
+
+## 2. The "Support" Tech (Don't Mention it for the Prize)
+You can still use the other tools to make your life easier, but don't waste your 1,500-word writeup describing them in detail.
+* **Use Ollama** to quickly prototype your RAG logic.
+* **Use LiteRT** if you need a quick mobile interface for the demo.
+* **BUT**, in your submission, frame these as "utility tools" while focusing your "Technical Depth" section (30 points) on your **Lead** technology.
+
+---
+
+## 3. Recommended Roadmap (5 Weeks Remaining)
+
+| Week | Task | Strategy |
+| :--- | :--- | :--- |
+| **Week 1** | **Ingestion Engine** | Build the `libzim` $\to$ **LanceDB** pipeline. |
+| **Week 2** | **Deep Dive (Lead Tech)** | Spend the entire week on your chosen prize (e.g., optimizing llama.cpp kernels). |
+| **Week 3** | **RAG Integration** | Connect Gemma 4 to the context provided by Kiwix. |
+| **Week 4** | **Impact Story** | Finalize your "Global Resilience" use case (Education/Disaster response). |
+| **Week 5** | **The Video** | Remember: The video is **70% of the weight** (Impact + Storytelling). |
+
+### My Professional Advice:
+Given that you are new to Kiwix but want an air-gapped solution, aim for the **llama.cpp prize**. It is the most "honest" implementation for air-gapped hardware, and it demonstrates a high level of technical execution that judges in the **Safety & Trust** or **Global Resilience** impact tracks will respect.
+
+Which of those three "Options" (llama.cpp, Unsloth, or Cactus) sounds like the most fun for you to build?
