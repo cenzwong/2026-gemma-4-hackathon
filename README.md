@@ -20,3 +20,8 @@ https://www.kaggle.com/competitions/gemma-4-good-hackathon
 - Demo 完整性： 唔好只係 show 一個 Jupyter Notebook。整一個簡單嘅 Streamlit 或 Flutter App 界面，展示成個 Agent 點樣「接收相片 -> 思考 -> 查資料 -> 比出建議」。
 - 如果要贏 LiteRT 獎項，Android 確實係 Google AI Edge 嘅「主場」。
 
+
+
+Reference project:
+- https://www.threads.com/@akilife3386/post/DWwTGpPlIV3?xmt=AQF08IAigEGEUUEbMG3UuyBw0I8iFz5hxu1fPsOuSy6D2Iegqn3GYebNASMUjH4DStW2G9M&slof=1
+- https://github.com/Crosstalk-Solutions/project-nomad
