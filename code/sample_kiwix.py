@@ -1,91 +1,64 @@
-import requests
-import sys
-import json
 import os
 from dotenv import load_dotenv
+from kiwix import Kiwix
 
 load_dotenv()
 
-def fetch_kiwix_data(base_url=None):
-    if base_url is None:
-        base_url = os.getenv("KIWIX_SERVER_URL", "http://192.168.8.152:8080")
-    """
-    Connects to the kiwix-serve API and fetches basic information.
-    """
+def main():
+    base_url = os.getenv("KIWIX_SERVER_URL", "http://192.168.8.152:8080")
     print(f"Connecting to kiwix-serve at {base_url}...\n")
     
-    try:
-        # 1. Verify the server is accessible
-        response = requests.get(base_url, timeout=10)
-        response.raise_for_status()
-        print(f"✅ Successfully connected! (Status Code: {response.status_code})")
-        
-        # 2. Access the catalog (Kiwix usually serves OPDS/JSON catalog at specific endpoints)
-        # We try a common endpoint. Adjust if you need a specific search or content endpoint.
-        catalog_url = f"{base_url}/catalog/v2/entries"
-        catalog_response = requests.get(catalog_url, timeout=10)
-        
-        if catalog_response.ok:
-            print(f"✅ Successfully fetched catalog from {catalog_url}")
-            content_type = catalog_response.headers.get('Content-Type', '')
-            
-            if 'application/json' in content_type:
-                data = catalog_response.json()
-                print(f"JSON data received. Snippet:")
-                print(json.dumps(data, indent=2)[:300] + "...")
-            else:
-                print(f"Response snippet (Non-JSON):")
-                print(catalog_response.text[:300] + "...")
-        else:
-            print(f"⚠️ Could not fetch standard catalog from {catalog_url}. The API might have different endpoints depending on the kiwix-serve version. (Status: {catalog_response.status_code})")
-            
-    except requests.exceptions.Timeout:
-        print("❌ Error: Connection timed out. Make sure the server is running and accessible on your network.")
-        sys.exit(1)
-    except requests.exceptions.ConnectionError:
-        print(f"❌ Error: Failed to connect to {base_url}.")
-        print("Please verify that kiwix-serve is running, the IP address is correct, and port 8080 is open.")
-        sys.exit(1)
-    except requests.exceptions.RequestException as e:
-        print(f"❌ An error occurred during the request: {e}")
-        sys.exit(1)
-
-def search_articles(base_url, book_id, query):
-    """
-    Searches for articles in a specific book (ZIM file) using the Kiwix suggest API.
-    Book ID should be the UUID of the book (e.g., from the catalog, like '5d963c1c-a44b-f83c-68e4-dec4c71374ed').
-    """
-    print(f"\nSearching for '{query}' in book '{book_id}'...")
-    suggest_url = f"{base_url}/suggest"
-    params = {
-        "content": book_id,
-        "term": query
-    }
+    kiwix_client = Kiwix(base_url)
     
-    try:
-        response = requests.get(suggest_url, params=params, timeout=10)
-        response.raise_for_status()
+    print("Fetching books...")
+    books = kiwix_client.get_kiwix_book()
+    print(f"✅ Found {len(books)} books.\n")
+    
+    if not books:
+        print("No books found. Exiting.")
+        return
         
-        results = response.json()
-        print(f"✅ Found {len(results)} results:")
-        for res in results[:5]:  # Print top 5
-            label = res.get('label', '')
-            label = label.replace('<b>', '').replace('</b>', '')
-            label = label.replace('&lt;b&gt;', '').replace('&lt;/b&gt;', '')
+    # Pick a specific book or fallback to the first one available
+    example_book = next((b for b in books if "medicine" in (b.name or "").lower()), books[0])
+    
+    query = "fever"
+    print(f"Searching for '{query}' in book: {example_book.title} (ID: {example_book.id})...")
+    
+    articles = example_book.search_article(query)
+    print(f"✅ Found {len(articles)} results for '{query}':")
+    
+    for article in articles[:5]:
+        if article.path:
+            print(f" - {article.title}: {article.url}")
+            if article.snippet:
+                print(f"   Snippet: {article.snippet[:100]}...")
+            if article.word_count:
+                print(f"   Word Count: {article.word_count} words")
+        else:
+            print(f" - {article.title} (Pattern match)")
             
-            path = res.get('path', '')
-            if path:
-                print(f" - {label}: {base_url}/content/{book_id}/{path}")
-            else:
-                print(f" - {label} (Pattern match)")
+    if articles:
+        first_article = articles[0]
+        print(f"\nFetching content for '{first_article.title}'...")
+        try:
+            html, headers = first_article.get_article()
+            print(f"✅ Retrieved article with {len(headers)} sections.")
+            
+            # Example: Filter out "References" and "External links"
+            exclude_headers = ["References", "External links", "Further reading", "Notes"]
+            filtered_headers = [h for h in headers if h.name not in exclude_headers]
+            
+            print(f"\nFiltered Sections ({len(filtered_headers)} remaining):")
+            for h in filtered_headers[:3]:  # Print first 3 to avoid spamming the console
+                print(f"\n--- {h.name} ---")
+                text_snippet = h.text[:150] + "..." if len(h.text) > 150 else h.text
+                print(text_snippet)
                 
-    except requests.exceptions.RequestException as e:
-        print(f"❌ Error searching: {e}")
+            if len(filtered_headers) > 3:
+                print(f"\n... and {len(filtered_headers) - 3} more sections.")
+                
+        except Exception as e:
+            print(f"Failed to fetch article content: {e}")
 
 if __name__ == "__main__":
-    base_url = os.getenv("KIWIX_SERVER_URL", "http://192.168.8.152:8080")
-    fetch_kiwix_data(base_url)
-    
-    # Example book ID from the wikipedia_en_medicine catalog entry
-    example_book_idx = "5d963c1c-a44b-f83c-68e4-dec4c71374ed" 
-    search_articles(base_url, example_book_idx, "fever")
+    main()
