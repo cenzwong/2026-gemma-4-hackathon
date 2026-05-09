@@ -31,3 +31,5 @@ This document tracks our development progress based on the `ONBOARDING.md` and `
 - [ ] Prepare demo video (Focus on Edge / Offline capabilities and Agent reasoning)
 - [ ] Draft submission write-up: Focus on Technical Depth (llama.cpp optimizations & Groundedness)
 - [ ] Finalize "Impact Story" (Global Resilience / Offline Medical Aid in disaster zones)
+
+https://gemini.google.com/share/be19f1d3aca6

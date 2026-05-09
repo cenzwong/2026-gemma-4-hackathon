@@ -3,3 +3,4 @@ google-genai
 requests
 beautifulsoup4
 textual
+baml-py
