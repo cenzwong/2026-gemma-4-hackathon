@@ -1,0 +1,48 @@
+Screen {
+    layout: vertical;
+}
+
+#header_bar {
+    dock: top;
+    height: 1;
+    content-align: center middle;
+    background: $accent;
+    color: auto;
+    text-style: bold;
+}
+
+#top_panels {
+    height: 1fr;
+    layout: horizontal;
+}
+
+#agent_state {
+    width: 1fr;
+    height: 100%;
+    border: round $primary;
+}
+
+#grounded_sources {
+    width: 1fr;
+    height: 100%;
+    border: round $secondary;
+}
+
+#diagnostic_output_container {
+    height: 2fr;
+    border: round $warning;
+}
+
+#diagnostic_scroll {
+    height: 100%;
+}
+
+#user_input_container {
+    height: 4;
+    border: round $success;
+}
+
+#prompt_input {
+    width: 100%;
+    border: none;
+}
