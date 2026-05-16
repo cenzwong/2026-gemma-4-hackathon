@@ -17,7 +17,7 @@ Our application abandons the standard, cloud-heavy AI design in favor of an effi
 
 1.  **The User Interface (`app/tui.py`)**: A lightweight Textual User Interface (TUI) provides a seamless terminal-based chat experience, ensuring the application remains highly responsive and functional in headless or low-resource OS environments.
 2.  **The Agentic Engine (`FSM/engine.py`)**: Rather than a standard chatbot, Dr. Offline utilizes a strict Finite State Machine. The FSM governs the reasoning path: *Triage $\to$ Keyword Expansion Search $\to$ Reasoning $\to$ Output*. This strict workflow forces the agent to gather context before speaking, entirely eliminating "guessed" or hallucinated medical advice.
-3.  **Knowledge Retrieval (`kiwix/client.py`)**: The system uses **Kiwix** (specifically the `.zim` format) as its Sole Source of Truth. Kiwix provides immense offline compression, allowing us to store the entirety of WikiMed locally, removing the need for heavy vector databases.
+3.  **Knowledge Retrieval (`kiwix/client.py`)**: The system uses **Kiwix** (specifically the `.zim` format) as its Sole Source of Truth. Kiwix provides immense offline compression, allowing us to store the entirety of WikiMed locally, removing the need for heavy vector databases. Notably, the Kiwix server host can be as simple as an everyday Android phone with the Kiwix app installed, acting as a portable local hotspot for the reasoning engine.
 
 ### How We Specifically Used Gemma 4
 
@@ -47,3 +47,9 @@ Building a robust AI for air-gapped edge devices presented several significant e
 ### Conclusion
 
 Dr. Offline proves that advanced medical reasoning no longer requires a lifeline to the cloud. By intelligently combining the high-efficiency Gemma 4 26B MoE and the offline robustness of Kiwix, we have built a resilient, hallucination-free medical engine that runs entirely on edge devices. When disaster strikes and communications fall, Dr. Offline ensures that world-class medical intelligence remains available at the edge—where it is needed most.
+
+### Attachments / Project Links
+
+*   **Video Demo:** [Insert YouTube Link]
+*   **Public Code Repository:** [Insert GitHub/Kaggle Repo Link]
+*   **Live Demo (if applicable):** [Insert Link to App/Instructions to run locally]
