@@ -11,7 +11,6 @@ from llm.models import GemmaModel
 class State(Enum):
     IDLE = auto()
     TRIAGE = auto()
-    SEARCH_VEC = auto()
     SEARCH_KIWIX = auto()
     REASONING = auto()
     OUTPUT = auto()
@@ -63,8 +62,6 @@ class MedicalAgentFSM:
         while self.state != State.IDLE:
             if self.state == State.TRIAGE:
                 self._handle_triage()
-            elif self.state == State.SEARCH_VEC:
-                self._handle_search_vec()
             elif self.state == State.SEARCH_KIWIX:
                 self._handle_search_kiwix()
             elif self.state == State.REASONING:
@@ -99,12 +96,6 @@ class MedicalAgentFSM:
             self._log_action("\n[🔄 STATE: SEARCH_KIWIX] Initiating offline medical database search...")
             self.state = State.SEARCH_KIWIX
 
-    def _handle_search_vec(self):
-        self._log_action("> [State: SEARCH_VEC] Querying LanceDB for semantic tags and titles...")
-        self.context['vec_results'] = [{"title": "Example Disease", "tag": "disease"}]
-        self._log_action("  [Action] Found relevant vectors. Moving to Full Text Search.")
-        self._log_action("\n[🔄 STATE: SEARCH_KIWIX] Searching Kiwix databases...")
-        self.state = State.SEARCH_KIWIX
 
     def _handle_search_kiwix(self):
         history_str = "\n".join(self.context['history'])

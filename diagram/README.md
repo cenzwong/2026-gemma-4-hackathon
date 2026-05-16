@@ -1,47 +1,4 @@
 ```mermaid
-graph TD
-    %% 定義節點 (Components)
-    User["用家 (User)"]
-    GemmaAgent["Gemma 4 (Agent LLM) <br/> 代理推理與決策中心"]
-    GemmaUnsloth["Gemma 4 (Unsloth Fine-tuned) <br/> 醫療語義/術語增強模型"]
-    KiwixZIM["Kiwix ZIM 原始歸檔 <br/> (100GB WikiMed)"]
-    MetadataScript["Python 元數據增強腳本 <br/> (Indexer Script)"]
-    LanceDB[("LanceDB 輕量化語義索引 <br/> 僅存標題, 感覺/病徵 Tag, URL")]
-    KiwixServe["kiwix-serve <br/> (離線 HTTP 伺服器)"]
-
-    %% 離線知識準備階段 (Offline Phase)
-    subgraph "離線知識準備與微調 (Knowledge Prep & Training)"
-        KiwixZIM -->|"1. 提取語料"| UnslothProcess["Unsloth 微調過程"]
-        UnslothProcess --> GemmaUnsloth
-        KiwixZIM -->|"2. 讀取文章摘要"| MetadataScript
-        MetadataScript -->|"3. 丟入摘要"| GemmaUnsloth
-        GemmaUnsloth -->|"4. 生成病人感覺與病徵 Tags"| MetadataScript
-        MetadataScript -->|"5. 索引標題/Tags 與 URL"| LanceDB
-    end
-
-    %% 在線檢索與代理決策階段 (Online Phase)
-    User -->|"醫療查詢 (文字/圖片)"| GemmaAgent
-    GemmaAgent -->|"Agentic Reasoning / 決策"| GemmaAgent
-
-    subgraph "代理工具調用 (Retrieval / Tool Use)"
-        GemmaAgent -->|"語義路由 (Vector Search)"| LanceDB
-        LanceDB -->|"相關文章 URL"| GemmaAgent
-        GemmaAgent -->|"Query Expansion + 檢索"| KiwixServe
-        KiwixServe -->|"全文權威內容"| GemmaAgent
-    end
-
-    GemmaAgent -->|"整合與 Fact-checking"| GemmaAgent
-    GemmaAgent -->|"最終醫療解釋"| User
-
-    %% 樣式美化
-    style GemmaAgent fill:#ff9999,stroke:#333,stroke-width:2px
-    style GemmaUnsloth fill:#e6f3ff,stroke:#333,stroke-width:2px
-    style LanceDB fill:#f9f9f9,stroke:#666,stroke-width:2px,stroke-dasharray: 5 5
-    style KiwixServe fill:#f9f9f9,stroke:#666,stroke-width:2px,stroke-dasharray: 5 5
-```
-
-
-```mermaid
 
 graph TD
     %% Define Nodes

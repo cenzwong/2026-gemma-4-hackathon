@@ -2,24 +2,21 @@
 
 This document tracks our development progress based on the `ONBOARDING.md` and `plan/` documents.
 
-## Phase 1: Foundation & Data Ingestion (LanceDB + Kiwix)
+## Phase 1: Foundation & Data Ingestion (Kiwix + BAML)
 - [x] Build basic Kiwix Python Client (`kiwix/client.py`, `book.py`, `article.py`)
-- [ ] Offline Pre-processing Script: Extract `Title` and `Abstract` from Kiwix `.zim` files
-- [ ] LLM Data Annotation: Use Gemma 4 to generate "Feelings Tag" & "Symptoms Tag" for articles
-- [ ] LanceDB Setup: Embed `Title + Feelings + Symptoms` and store with `zim_id` / URL to avoid "Unzip Bomb"
+- [ ] LLM Query Expansion: Use BAML with Gemma 4 to convert layman terms into clinical keywords
 
 ## Phase 2: Agentic Workflow Integration (FSM)
 - [x] Create FSM skeleton (`FSM/engine.py`)
 - [ ] FSM: Implement `TRIAGE` state logic (Call LLM to classify if query is medical)
-- [ ] FSM: Implement `SEARCH_VEC` state logic (LanceDB Semantic Vector Retrieval)
-- [ ] FSM: Implement `SEARCH_KIWIX` state logic (Connect `Book.search_article` to FSM)
+- [ ] FSM: Implement `SEARCH_KIWIX` state logic (Connect `Book.search_article` to FSM via Query Expansion)
 - [ ] FSM: Implement `REASONING` state logic (Combine retrieved contexts, call Gemma 4 for grounded reasoning)
 - [ ] FSM: Implement `OUTPUT` state logic (Ensure citations and avoid hallucinations)
 
 ## Phase 3: User Interface (TUI & App)
 - [x] Build basic Textual UI (`app/tui.py`)
 - [ ] Integrate FSM Engine into TUI (Replace direct streaming with Agentic Workflow steps)
-- [ ] Display Agent thought process (e.g., "Triaging...", "Searching Vector DB...", "Reasoning...") in UI
+- [ ] Display Agent thought process (e.g., "Triaging...", "Searching Kiwix...", "Reasoning...") in UI
 
 ## Phase 4: Edge Deployment Optimization (llama.cpp / LiteRT)
 - [ ] Obtain Gemma 4 26B MoE in GGUF format (4-bit quantization)

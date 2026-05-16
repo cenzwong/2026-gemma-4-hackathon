@@ -13,7 +13,7 @@ The codebase is structured into four main components:
 
 2. **`FSM/` (Medical Agent Engine)**
    - Houses the core Finite State Machine in `engine.py`.
-   - Controls the agentic workflow: Triage -> Semantic Search (LanceDB) -> Full Text Search (Kiwix) -> Reasoning -> Output.
+   - Controls the agentic workflow: Triage -> Keyword Expansion Search (Kiwix) -> Reasoning -> Output.
    - Ensures the agent follows a strict reasoning path to avoid hallucinations and ground answers in factual data.
 
 3. **`kiwix/` (Knowledge Retrieval)**
@@ -40,4 +40,4 @@ The codebase is structured into four main components:
 
 - **Edge Deployment**: We aim to run this entirely on-device (e.g., a low-end Android phone via LiteRT) to show the value of a small footprint Gemma 4 model.
 - **Agentic Workflow**: The agent doesn't just chat; it actively searches, parses, and reasons over the local WikiMed database using a defined Finite State Machine.
-- **Grounding**: Medical domain demands accuracy. All responses must be grounded in search results fetched via Kiwix and LanceDB.
+- **Grounding**: Medical domain demands accuracy. All responses must be grounded in search results fetched via Kiwix.

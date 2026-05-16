@@ -33,8 +33,8 @@ The `kiwix` module handles querying a local `kiwix-serve` instance.
 
 ### 2. Finite State Machine (FSM)
 The Medical Agent's logic is tightly controlled by `MedicalAgentFSM` in `FSM/engine.py`.
-- **States**: `IDLE` -> `TRIAGE` -> `SEARCH_VEC` -> `SEARCH_KIWIX` -> `REASONING` -> `OUTPUT`.
-- **Goal**: Prevent hallucinations. The agent must first confirm a medical query (Triage), search semantic vector space (LanceDB), retrieve full text (Kiwix), reason over the context (using Gemma 4), and output a response citing the source.
+- **States**: `IDLE` -> `TRIAGE` -> `SEARCH_KIWIX` -> `REASONING` -> `OUTPUT`.
+- **Goal**: Prevent hallucinations. The agent must first confirm a medical query (Triage), perform keyword expansion and retrieve full text (Kiwix), reason over the context (using Gemma 4), and output a response citing the source.
 - *Note:* The FSM logic is currently implemented with dummy conditionals (`TODO` comments) and needs further integration with the `llm` and `kiwix` modules.
 
 ### 3. Language Model Integration
