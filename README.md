@@ -24,4 +24,3 @@ https://www.kaggle.com/competitions/gemma-4-good-hackathon
 
 Reference project:
 - https://www.threads.com/@akilife3386/post/DWwTGpPlIV3?xmt=AQF08IAigEGEUUEbMG3UuyBw0I8iFz5hxu1fPsOuSy6D2Iegqn3GYebNASMUjH4DStW2G9M&slof=1
-- https://github.com/Crosstalk-Solutions/project-nomad

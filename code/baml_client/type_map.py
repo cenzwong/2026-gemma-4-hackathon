@@ -16,6 +16,12 @@ from . import stream_types
 
 type_map = {
 
+    "types.ExtractedSymptoms": types.ExtractedSymptoms,
+    "stream_types.ExtractedSymptoms": stream_types.ExtractedSymptoms,
+
+    "types.InformationEvaluation": types.InformationEvaluation,
+    "stream_types.InformationEvaluation": stream_types.InformationEvaluation,
+
     "types.Resume": types.Resume,
     "stream_types.Resume": stream_types.Resume,
 

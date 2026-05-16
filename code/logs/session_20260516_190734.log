@@ -1,0 +1,43 @@
+--- Session Started at 20260516_190734 ---
+
+--- Session Started at 20260516_190734 ---
+
+[ACTION] > Starting FSM with input: 'I have a headache'
+[ACTION] > Analyzing patient input...
+[ACTION] > Extracting keywords:
+  (headache)
+[ACTION] > Insufficient info. Asking follow-up question.
+[OUTPUT] How long have you had the headache?
+[ACTION] > Generation complete.
+--- Session Started at 20260516_190734 ---
+
+[ACTION] > Starting FSM with input: 'I have crushing chest pain'
+[ACTION] > Analyzing patient input...
+[ACTION] > Sufficient medical info confirmed.
+[ACTION] > Querying Kiwix-serve for keyword: 'chest pain'...
+[ACTION] > Found 1 relevant articles for 'chest pain'.
+[SOURCE] 📄 Source 1: [link=http://192.168.8.152:8080/angina]Angina[/link]
+   Match: "Chest pain snippet..."
+
+[ACTION] > Full text retrieved. Moving to Reasoning.
+[ACTION] > Reading context & reasoning...
+  [████████████░░░░] Processing Context
+[OUTPUT] This is a mocked response.
+[ACTION] > Generation complete.
+--- Session Started at 20260516_190734 ---
+
+[ACTION] > Starting FSM with input: 'I have a fever'
+[ACTION] > Analyzing patient input...
+[ACTION] > Sufficient medical info confirmed.
+[ACTION] > Querying Kiwix-serve for keyword: 'very specific bad query'...
+[ACTION]   No articles found for 'very specific bad query', trying next keyword...
+[ACTION] > Querying Kiwix-serve for keyword: 'fever'...
+[ACTION] > Found 1 relevant articles for 'fever'.
+[SOURCE] 📄 Source 1: [link=http://192.168.8.152:8080/fever]Fever[/link]
+   Match: "Fever snippet..."
+
+[ACTION] > Full text retrieved. Moving to Reasoning.
+[ACTION] > Reading context & reasoning...
+  [████████████░░░░] Processing Context
+[OUTPUT] Result
+[ACTION] > Generation complete.

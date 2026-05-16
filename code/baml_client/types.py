@@ -41,8 +41,15 @@ def all_succeeded(checks: typing.Dict[CheckName, Check]) -> bool:
 # #########################################################################
 
 # #########################################################################
-# Generated classes (1)
+# Generated classes (3)
 # #########################################################################
+
+class ExtractedSymptoms(BaseModel):
+    symptoms: typing.List[str] = Field(description='A list of symptoms or medical issues described by the user.')
+
+class InformationEvaluation(BaseModel):
+    has_enough_info: bool = Field(description='True if the user has provided sufficient medical details (symptoms, duration, context) to begin research, or false if more clarifying questions need to be asked.')
+    confidence: float = Field(description='A value between 0.0 and 1.0 indicating how confident you are in this assessment.')
 
 class Resume(BaseModel):
     name: str

@@ -23,8 +23,15 @@ class StreamState(BaseModel, typing.Generic[StreamStateValueT]):
     value: StreamStateValueT
     state: typing_extensions.Literal["Pending", "Incomplete", "Complete"]
 # #########################################################################
-# Generated classes (1)
+# Generated classes (3)
 # #########################################################################
+
+class ExtractedSymptoms(BaseModel):
+    symptoms: typing.List[str] = Field(description='A list of symptoms or medical issues described by the user.')
+
+class InformationEvaluation(BaseModel):
+    has_enough_info: typing.Optional[bool] = Field(default=None, description='True if the user has provided sufficient medical details (symptoms, duration, context) to begin research, or false if more clarifying questions need to be asked.')
+    confidence: typing.Optional[float] = Field(default=None, description='A value between 0.0 and 1.0 indicating how confident you are in this assessment.')
 
 class Resume(BaseModel):
     name: typing.Optional[str] = None

@@ -7,6 +7,18 @@ class Kiwix:
     def __init__(self, base_url: str):
         self.base_url = base_url
 
+    def is_online(self, timeout: float = 2.0) -> bool:
+        """
+        Checks if the kiwix server is online and reachable.
+        """
+        try:
+            # A quick check to the catalog endpoint
+            response = requests.get(f"{self.base_url}/catalog/v2/entries", params={'count': 1}, timeout=timeout)
+            response.raise_for_status()
+            return True
+        except requests.exceptions.RequestException:
+            return False
+
     def get_kiwix_book(
         self,
         start: Optional[int] = None,

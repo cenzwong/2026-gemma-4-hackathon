@@ -94,6 +94,48 @@ class BamlSyncClient:
     def parse_stream(self):
       return self.__llm_stream_parser
 
+    def AskFollowUpQuestion(self, asked_symptoms: str,conversation_history: str,
+        baml_options: BamlCallOptions = {},
+    ) -> str:
+        # Check if on_tick is provided
+        if 'on_tick' in baml_options:
+            __stream__ = self.stream.AskFollowUpQuestion(asked_symptoms=asked_symptoms,conversation_history=conversation_history,
+                baml_options=baml_options)
+            return __stream__.get_final_response()
+        else:
+            # Original non-streaming code
+            __result__ = self.__options.merge_options(baml_options).call_function_sync(function_name="AskFollowUpQuestion", args={
+                "asked_symptoms": asked_symptoms,"conversation_history": conversation_history,
+            })
+            return typing.cast(str, __result__.cast_to(types, types, stream_types, False, __runtime__))
+    def DecodeQuestion(self, query: str,
+        baml_options: BamlCallOptions = {},
+    ) -> typing.List[str]:
+        # Check if on_tick is provided
+        if 'on_tick' in baml_options:
+            __stream__ = self.stream.DecodeQuestion(query=query,
+                baml_options=baml_options)
+            return __stream__.get_final_response()
+        else:
+            # Original non-streaming code
+            __result__ = self.__options.merge_options(baml_options).call_function_sync(function_name="DecodeQuestion", args={
+                "query": query,
+            })
+            return typing.cast(typing.List[str], __result__.cast_to(types, types, stream_types, False, __runtime__))
+    def EvaluateInformation(self, conversation: str,
+        baml_options: BamlCallOptions = {},
+    ) -> types.InformationEvaluation:
+        # Check if on_tick is provided
+        if 'on_tick' in baml_options:
+            __stream__ = self.stream.EvaluateInformation(conversation=conversation,
+                baml_options=baml_options)
+            return __stream__.get_final_response()
+        else:
+            # Original non-streaming code
+            __result__ = self.__options.merge_options(baml_options).call_function_sync(function_name="EvaluateInformation", args={
+                "conversation": conversation,
+            })
+            return typing.cast(types.InformationEvaluation, __result__.cast_to(types, types, stream_types, False, __runtime__))
     def ExtractResume(self, resume: str,
         baml_options: BamlCallOptions = {},
     ) -> types.Resume:
@@ -108,6 +150,20 @@ class BamlSyncClient:
                 "resume": resume,
             })
             return typing.cast(types.Resume, __result__.cast_to(types, types, stream_types, False, __runtime__))
+    def ExtractSymptoms(self, query: str,
+        baml_options: BamlCallOptions = {},
+    ) -> types.ExtractedSymptoms:
+        # Check if on_tick is provided
+        if 'on_tick' in baml_options:
+            __stream__ = self.stream.ExtractSymptoms(query=query,
+                baml_options=baml_options)
+            return __stream__.get_final_response()
+        else:
+            # Original non-streaming code
+            __result__ = self.__options.merge_options(baml_options).call_function_sync(function_name="ExtractSymptoms", args={
+                "query": query,
+            })
+            return typing.cast(types.ExtractedSymptoms, __result__.cast_to(types, types, stream_types, False, __runtime__))
     
 
 
@@ -117,6 +173,42 @@ class BamlStreamClient:
     def __init__(self, options: DoNotUseDirectlyCallManager):
         self.__options = options
 
+    def AskFollowUpQuestion(self, asked_symptoms: str,conversation_history: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlSyncStream[str, str]:
+        __ctx__, __result__ = self.__options.merge_options(baml_options).create_sync_stream(function_name="AskFollowUpQuestion", args={
+            "asked_symptoms": asked_symptoms,"conversation_history": conversation_history,
+        })
+        return baml_py.BamlSyncStream[str, str](
+          __result__,
+          lambda x: typing.cast(str, x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(str, x.cast_to(types, types, stream_types, False, __runtime__)),
+          __ctx__,
+        )
+    def DecodeQuestion(self, query: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlSyncStream[typing.List[str], typing.List[str]]:
+        __ctx__, __result__ = self.__options.merge_options(baml_options).create_sync_stream(function_name="DecodeQuestion", args={
+            "query": query,
+        })
+        return baml_py.BamlSyncStream[typing.List[str], typing.List[str]](
+          __result__,
+          lambda x: typing.cast(typing.List[str], x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(typing.List[str], x.cast_to(types, types, stream_types, False, __runtime__)),
+          __ctx__,
+        )
+    def EvaluateInformation(self, conversation: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlSyncStream[stream_types.InformationEvaluation, types.InformationEvaluation]:
+        __ctx__, __result__ = self.__options.merge_options(baml_options).create_sync_stream(function_name="EvaluateInformation", args={
+            "conversation": conversation,
+        })
+        return baml_py.BamlSyncStream[stream_types.InformationEvaluation, types.InformationEvaluation](
+          __result__,
+          lambda x: typing.cast(stream_types.InformationEvaluation, x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(types.InformationEvaluation, x.cast_to(types, types, stream_types, False, __runtime__)),
+          __ctx__,
+        )
     def ExtractResume(self, resume: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.BamlSyncStream[stream_types.Resume, types.Resume]:
@@ -129,6 +221,18 @@ class BamlStreamClient:
           lambda x: typing.cast(types.Resume, x.cast_to(types, types, stream_types, False, __runtime__)),
           __ctx__,
         )
+    def ExtractSymptoms(self, query: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlSyncStream[stream_types.ExtractedSymptoms, types.ExtractedSymptoms]:
+        __ctx__, __result__ = self.__options.merge_options(baml_options).create_sync_stream(function_name="ExtractSymptoms", args={
+            "query": query,
+        })
+        return baml_py.BamlSyncStream[stream_types.ExtractedSymptoms, types.ExtractedSymptoms](
+          __result__,
+          lambda x: typing.cast(stream_types.ExtractedSymptoms, x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(types.ExtractedSymptoms, x.cast_to(types, types, stream_types, False, __runtime__)),
+          __ctx__,
+        )
     
 
 class BamlHttpRequestClient:
@@ -137,11 +241,39 @@ class BamlHttpRequestClient:
     def __init__(self, options: DoNotUseDirectlyCallManager):
         self.__options = options
 
+    def AskFollowUpQuestion(self, asked_symptoms: str,conversation_history: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        __result__ = self.__options.merge_options(baml_options).create_http_request_sync(function_name="AskFollowUpQuestion", args={
+            "asked_symptoms": asked_symptoms,"conversation_history": conversation_history,
+        }, mode="request")
+        return __result__
+    def DecodeQuestion(self, query: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        __result__ = self.__options.merge_options(baml_options).create_http_request_sync(function_name="DecodeQuestion", args={
+            "query": query,
+        }, mode="request")
+        return __result__
+    def EvaluateInformation(self, conversation: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        __result__ = self.__options.merge_options(baml_options).create_http_request_sync(function_name="EvaluateInformation", args={
+            "conversation": conversation,
+        }, mode="request")
+        return __result__
     def ExtractResume(self, resume: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.baml_py.HTTPRequest:
         __result__ = self.__options.merge_options(baml_options).create_http_request_sync(function_name="ExtractResume", args={
             "resume": resume,
+        }, mode="request")
+        return __result__
+    def ExtractSymptoms(self, query: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        __result__ = self.__options.merge_options(baml_options).create_http_request_sync(function_name="ExtractSymptoms", args={
+            "query": query,
         }, mode="request")
         return __result__
     
@@ -152,11 +284,39 @@ class BamlHttpStreamRequestClient:
     def __init__(self, options: DoNotUseDirectlyCallManager):
         self.__options = options
 
+    def AskFollowUpQuestion(self, asked_symptoms: str,conversation_history: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        __result__ = self.__options.merge_options(baml_options).create_http_request_sync(function_name="AskFollowUpQuestion", args={
+            "asked_symptoms": asked_symptoms,"conversation_history": conversation_history,
+        }, mode="stream")
+        return __result__
+    def DecodeQuestion(self, query: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        __result__ = self.__options.merge_options(baml_options).create_http_request_sync(function_name="DecodeQuestion", args={
+            "query": query,
+        }, mode="stream")
+        return __result__
+    def EvaluateInformation(self, conversation: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        __result__ = self.__options.merge_options(baml_options).create_http_request_sync(function_name="EvaluateInformation", args={
+            "conversation": conversation,
+        }, mode="stream")
+        return __result__
     def ExtractResume(self, resume: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.baml_py.HTTPRequest:
         __result__ = self.__options.merge_options(baml_options).create_http_request_sync(function_name="ExtractResume", args={
             "resume": resume,
+        }, mode="stream")
+        return __result__
+    def ExtractSymptoms(self, query: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        __result__ = self.__options.merge_options(baml_options).create_http_request_sync(function_name="ExtractSymptoms", args={
+            "query": query,
         }, mode="stream")
         return __result__
     

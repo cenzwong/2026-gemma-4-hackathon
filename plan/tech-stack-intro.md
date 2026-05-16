@@ -18,7 +18,7 @@
 * **What it is:** A C++ implementation of the Gemma/Llama architecture designed for CPU-first inference.
 * **The Problem it Solves:** GPUs are expensive. Most people in "AI for Good" scenarios have standard laptops with CPUs.
 * **How it Works:** It uses **GGUF quantization**. It allows you to run Gemma 4 26B on a standard Mac or PC by offloading parts of the model to System RAM instead of just VRAM.
-* **Best for:** The "Project NOMAD" approach. If you want to run Gemma 4 on a ruggedized laptop in a disaster zone, this is the engine you use.
+* **Best for:** The "Dr. Offline" approach. If you want to run Gemma 4 on a ruggedized laptop in a disaster zone, this is the engine you use.
 
 #### **4. Ollama (The User Experience Layer)**
 * **What it is:** A user-friendly wrapper built (mostly) on llama.cpp.
@@ -55,7 +55,7 @@ If you are following our plan of an **Offline Medical Oracle using Kiwix**, here
     * If you want to win the **Ollama** track ($10k), focus on the ease of deployment and the API integration.
     * If you want to win the **llama.cpp** track ($10k), focus on how you've optimized the model to run on a low-resource "constrained" laptop (e.g., using 4-bit or 1.5-bit quantization).
 
-> **Expert Guide Note:** Given your interest in the "Project NOMAD" concept, focusing on the **llama.cpp** or **Ollama** tracks provides the most direct path to success because they are designed for the "local-first" philosophy you've chosen.
+> **Expert Guide Note:** Given your interest in the "Dr. Offline" concept, focusing on the **llama.cpp** or **Ollama** tracks provides the most direct path to success because they are designed for the "local-first" philosophy you've chosen.
 
 Which of these technical "challenges" sounds most interesting to you: **optimizing the model for the weakest possible hardware** (llama.cpp) or **fine-tuning it to be a medical expert** (Unsloth)?
 
@@ -83,7 +83,7 @@ Which of these technical "challenges" sounds most interesting to you: **optimizi
 #### **🏗️ llama.cpp (跨平台、低配硬件救星)**
 * **定位：** 將大模型變做純 C++ 實作，唔洗 GPU 都可以喺 CPU 同 RAM 上面行。
 * **核心功能：** 支援 **GGUF** 格式同埋極致嘅量化技術 (Quantization)。
-* **點解揀佢：** **最夾 Project NOMAD。** 如果你想喺一部舊嘅電腦或者 Raspberry Pi 上面行 Gemma 4 26B，呢個係唯一可以將模型壓到極細、同時維持速度嘅工具。
+* **點解揀佢：** **最夾 Dr. Offline。** 如果你想喺一部舊嘅電腦或者 Raspberry Pi 上面行 Gemma 4 26B，呢個係唯一可以將模型壓到極細、同時維持速度嘅工具。
 
 #### **🦙 Ollama (最易用嘅本地 API 封裝)**
 * **定位：** 基於 llama.cpp 嘅一個「包裝盒」，令你可以好似用 Docker 咁管理 AI 模型。

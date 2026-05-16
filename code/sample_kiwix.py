@@ -10,6 +10,12 @@ def main():
     
     kiwix_client = Kiwix(base_url)
     
+    if kiwix_client.is_online():
+        print("✅ Kiwix server is online (Heartbeat OK).\n")
+    else:
+        print("❌ Kiwix server is offline or unreachable. Exiting.\n")
+        return
+    
     print("Fetching books...")
     books = kiwix_client.get_kiwix_book()
     print(f"✅ Found {len(books)} books.\n")

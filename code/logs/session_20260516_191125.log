@@ -1,0 +1,30 @@
+--- Session Started at 20260516_191125 ---
+
+[ACTION] > Starting FSM with input: 'I’ve been feeling awful since yesterday. '
+[ACTION] > Analyzing patient input...
+[ACTION] > Extracting keywords:
+  (feeling awful)
+[ACTION] > Insufficient info. Asking follow-up question.
+[OUTPUT] Could you describe the specific symptoms you are experiencing, such as pain, fever, nausea, or fatigue?
+[ACTION] > Generation complete.
+[ACTION] > Starting FSM with input: 'I have a sudden high fever, severe chills, and my muscles are aching so badly I can barely get out of bed. I just got back from a work trip overseas last week.'
+[ACTION] > Analyzing patient input...
+[ACTION] > Sufficient medical info confirmed.
+[ACTION] > Querying Kiwix-serve for keyword: 'travel-related illness'...
+[ACTION] > Found 25 relevant articles for 'travel-related illness'.
+[SOURCE] 📄 Source 1: [link=http://192.168.8.152:8080/http://192.168.8.152:8080/content/fb7d092d-a93a-9689-8d81-510a610e0110/Wilderness_medicine]Wilderness medicine[/link]
+   Match: "...services Ambulance history Ambulance bus Blood bike Combination car Light horse field ambulance M..."
+
+[SOURCE] 📄 Source 2: [link=http://192.168.8.152:8080/http://192.168.8.152:8080/content/fb7d092d-a93a-9689-8d81-510a610e0110/Foodborne_illness]Foodborne illness[/link]
+   Match: "...ill.[103] Serious outbreaks of foodborne illness since the 1970s prompted key changes in UK food ..."
+
+[SOURCE] 📄 Source 3: [link=http://192.168.8.152:8080/http://192.168.8.152:8080/content/fb7d092d-a93a-9689-8d81-510a610e0110/Cyclospora_cayetanensis]Cyclospora cayetanensis[/link]
+   Match: "...ill, stressed, or jaundiced infants.[14] No highly alternative antibiotic regimen has been discov..."
+
+[ACTION] > Full text retrieved. Moving to Reasoning.
+[ACTION] > Reading context & reasoning...
+  [████████████░░░░] Processing Context
+[OUTPUT] I am an AI, not a doctor. Please seek professional medical help immediately, especially given the severity of your symptoms.
+
+Based on the provided medical references, your recent overseas travel is a significant detail. The text *Wilderness medicine* notes that the scope of tropical and travel medicine includes addressing "Tick-borne illness, malaria and tropical diseases." Because you have recently returned from a trip overseas, your symptoms may be related to these types of conditions.
+[ACTION] > Generation complete.

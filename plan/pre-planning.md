@@ -2,7 +2,7 @@
 
 ### 🏆 專案定位：離線醫療推理引擎 (Offline Medical Reasoning Engine)
 * **目標賽道 (Target Tracks)：** Global Resilience (全球韌性) / Health & Sciences (醫療與科學)。
-* **核心理念：** 借鑑 Project NOMAD 嘅離線基建概念，但將大腦升級為具備深度醫療推理、防幻覺能力嘅 Gemma 4 邊緣端 AI。
+* **核心理念：** 借鑑 Dr. Offline 嘅離線基建概念，但將大腦升級為具備深度醫療推理、防幻覺能力嘅 Gemma 4 邊緣端 AI。
 
 ---
 

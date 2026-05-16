@@ -1,4 +1,4 @@
-# Project NOMAD - TODO List
+# Dr. Offline - TODO List
 
 This document tracks our development progress based on the `ONBOARDING.md` and `plan/` documents.
 

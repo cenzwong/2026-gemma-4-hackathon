@@ -1,6 +1,6 @@
-# Project NOMAD: 離線醫療推理引擎 (Offline Medical Reasoning Engine) - Onboarding Guide
+# Dr. Offline: 離線醫療推理引擎 (Offline Medical Reasoning Engine) - Onboarding Guide
 
-歡迎加入 Project NOMAD 嘅開發 Team！呢份 document 係專為新同事同未來嘅 AI Agent 準備嘅 Onboarding Guide。我哋參加緊 **2026 Gemma 4 Good Hackathon**，目標係要打造一個完全 offline 嘅醫療 RAG 系統。
+歡迎加入 Dr. Offline 嘅開發 Team！呢份 document 係專為新同事同未來嘅 AI Agent 準備嘅 Onboarding Guide。我哋參加緊 **2026 Gemma 4 Good Hackathon**，目標係要打造一個完全 offline 嘅醫療 RAG 系統。
 
 ---
 
@@ -79,4 +79,4 @@
 
 ---
 
-祝各位喺 Project NOMAD 開發順利！Let's win this hackathon! 🚀
+祝各位喺 Dr. Offline 開發順利！Let's win this hackathon! 🚀

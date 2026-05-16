@@ -1,0 +1,34 @@
+--- Session Started at 20260516_192656 ---
+
+[ACTION] > Starting FSM with input: ' I’ve been feeling awful since yesterday. '
+[ACTION] > Analyzing patient input...
+[ACTION] > Extracting keywords:
+  (feeling awful)
+[ACTION] > Insufficient info. Asking follow-up question.
+[OUTPUT] Could you please describe your specific symptoms in more detail, such as any pain, fever, nausea, or fatigue?
+[ACTION] > Generation complete.
+[ACTION] > Starting FSM with input: 'I have a sudden high fever, severe chills, and my muscles are aching so badly I can barely get out of bed. I just got back from a work trip overseas last week.'
+[ACTION] > Analyzing patient input...
+[ACTION] > Sufficient medical info confirmed.
+[ACTION] > Querying Kiwix-serve for keyword: 'high fever'...
+[ACTION] > Found 25 relevant articles for 'high fever'.
+[SOURCE] 📄 Source 1: [link=http://192.168.8.152:8080/http://192.168.8.152:8080/content/fb7d092d-a93a-9689-8d81-510a610e0110/Rheumatic_fever]Rheumatic fever[/link]
+   Match: "...fever Not to be confused with rheumatoid arthritis. Rheumatic fever Other names Acute rheumatic f..."
+
+[SOURCE] 📄 Source 2: [link=http://192.168.8.152:8080/http://192.168.8.152:8080/content/fb7d092d-a93a-9689-8d81-510a610e0110/Lassa_fever]Lassa fever[/link]
+   Match: "...fever Lassa fever Other names Lassa hemorrhagic fever Community education material for Lassa feve..."
+
+[SOURCE] 📄 Source 3: [link=http://192.168.8.152:8080/http://192.168.8.152:8080/content/fb7d092d-a93a-9689-8d81-510a610e0110/2019%E2%80%932020_dengue_fever_epidemic]2019–2020 dengue fever epidemic[/link]
+   Match: "...dengue fever epidemic Number of confirmed cases by country:   1,000,000+ cases   100,000–999,999 ..."
+
+[ACTION] > Full text retrieved. Moving to Reasoning.
+[ACTION] > Reading context & reasoning...
+  [████████████░░░░] Processing Context
+[OUTPUT] I am an AI and you should seek professional medical help immediately, especially given the severity of your symptoms.
+
+Based on the provided medical references, several conditions involve fever and physical discomfort:
+
+*   **Lassa fever:** Symptoms can include fever, tiredness, and weakness, typically appearing 7 to 21 days after exposure (*Lassa fever*).
+*   **Rheumatic fever:** This condition involves fever and painful joints, usually developing two to four weeks after a throat infection (*Rheumatic fever*).
+*   **Dengue fever:** A major epidemic of this disease occurred in several Southeast Asian countries, including Malaysia, Vietnam, and Thailand (*2019–2020 dengue fever epidemic*).
+[ACTION] > Generation complete.
