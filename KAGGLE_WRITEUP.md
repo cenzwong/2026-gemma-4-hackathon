@@ -42,7 +42,7 @@ Building a robust AI for air-gapped edge devices presented several significant e
 
 #### Challenge 3: Hardware Portability and Compute Limits
 **The Problem:** Serving a 26B parameter model typically requires expensive, high-end cloud GPUs—resources that are non-existent in disaster zones.
-**The Solution:** To achieve true portability, we integrated **llama.cpp** into our stack. By aggressively utilizing **4-bit GGUF Quantization**, we successfully compressed the Gemma 4 26B MoE's VRAM requirements from over 50GB down to 15-18GB. This allowed the entire intelligence pipeline—LLM and Kiwix server—to execute fluently on consumer-grade hardware and CPUs, fulfilling our mission for the Global Resilience track.
+**The Solution:** While our existing development harness utilizes the online Google API for rapid prototyping and validation, our production deployment architecture is designed entirely for on-device inference using **Ollama**. By utilizing Ollama to serve a 4-bit quantized version of the model, we compress the Gemma 4 26B MoE's VRAM requirements from over 50GB down to roughly 15-18GB. This ensures that the entire intelligence pipeline—LLM and Kiwix server—can execute fluently on consumer-grade hardware in the field, fulfilling our mission for the Global Resilience track.
 
 ### Conclusion
 
@@ -50,6 +50,6 @@ Dr. Offline proves that advanced medical reasoning no longer requires a lifeline
 
 ### Attachments / Project Links
 
-*   **Video Demo:** [Insert YouTube Link]
-*   **Public Code Repository:** [Insert GitHub/Kaggle Repo Link]
-*   **Live Demo (if applicable):** [Insert Link to App/Instructions to run locally]
+*   **Video Demo:** [YouTube](https://www.youtube.com/watch?v=R3nA1u5oLrQ)
+*   **Public Code Repository:** [GitHub](https://github.com/cenzwong/2026-gemma-4-hackathon)
+*   **Live Demo:** Follow the instructions in the **README.md** file in the [Public Code Repository](https://github.com/cenzwong/2026-gemma-4-hackathon) to run the application locally.

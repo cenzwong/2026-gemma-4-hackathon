@@ -1,0 +1,17 @@
+#!/bin/bash
+
+mkdir -p voice
+
+say -r 200 -o "voice/1.mp3" "In disaster zones and remote regions, access to reliable medical intelligence is often a matter of life and death. Modern AI models are incredibly powerful, but they share one fatal flaw: they assume you have high-bandwidth internet. When the grid fails, cloud-based models become useless. The people who need intelligence the most are completely cut off."
+
+say -r 200 -o "voice/2.mp3" "Enter Dr. Offline. We've built an air-gapped, fully offline medical triage and retrieval system. By engineering an intelligent Retrieval-Augmented Generation pipeline optimized for edge computing, we're bringing the power of Google's Gemma 4 26B MoE model directly to the disconnected frontline—running entirely on local hardware."
+
+say -r 200 -o "voice/3.mp3" "Let's see it in action. Dr. Offline abandons the standard chatbot design for a strict Agentic Workflow governed by a Finite State Machine. This prevents the model from guessing or hallucinating medical advice. When a user inputs a layman symptom, Gemma 4 doesn't just start talking. First, it acts as an intelligent semantic router. Using BAML to enforce structured JSON outputs, Gemma 4 translates 'heavy rock on chest' into precise clinical search terms."
+
+say -r 200 -o "voice/4.mp3" "Next, instead of a massive, memory-hogging vector database, we use Kiwix to search an offline, highly compressed copy of WikiMed. We completely avoided the 'unzip bomb' of vectorizing hundreds of thousands of articles, keeping our storage footprint incredibly light."
+
+say -r 200 -o "voice/5.mp3" "Finally, we inject the complete text of the top retrieved articles straight into Gemma 4's massive 256K Context Window. Gemma cross-references the documents and generates a grounded, life-saving response that strictly cites the provided text."
+
+say -r 200 -o "voice/6.mp3" "Running a 26 billion parameter model at the edge sounds impossible. But we specifically chose the Gemma 4 MoE architecture for its hardware efficiency—the Router mechanism only activates about 4 billion parameters per token. By deploying via Ollama with 4-bit quantization, we compressed the VRAM requirements from over 50 gigabytes down to roughly 15. This allows the entire intelligence pipeline to run fluently on consumer-grade laptops in the field."
+
+say -r 200 -o "voice/7.mp3" "Dr. Offline proves that world-class medical reasoning no longer requires a lifeline to the cloud. By intelligently combining the hardware efficiency of Gemma 4 with the offline robustness of Kiwix, we are democratizing medical intelligence for the edge—where it's needed most."
