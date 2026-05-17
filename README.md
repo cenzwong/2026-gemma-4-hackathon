@@ -6,6 +6,7 @@
 Dr. Offline is an air-gapped, fully offline medical triage and retrieval system designed for disaster zones, remote villages, and resource-deprived environments. Powered by **Gemma 4 26B MoE** and a **Kiwix** offline knowledge base, this application provides grounded, hallucination-free medical guidance without requiring any internet connection.
 
 📖 **[Read our full technical Writeup here](./KAGGLE_WRITEUP.md)**
+🏆 **[View our Kaggle Submission](https://kaggle.com/competitions/gemma-4-good-hackathon/writeups/dr-offline-the-offline-medical-reasoning-engine)**
 
 ---
 
