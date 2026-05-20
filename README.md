@@ -1,5 +1,7 @@
 # Dr. Offline: The Offline Medical Reasoning Engine
 
+![alt text](image.png)
+
 **2026 Gemma 4 Good Hackathon Submission**  
 **Track**: Global Resilience
 
